@@ -805,12 +805,12 @@ namespace lgfx
       if (flg_nack && op_code == i2c_cmd_read) {
         cmd_val |= (1 << 10); // ACK_VALUE (set NACK)
       }
-#if defined (CONFIG_IDF_TARGET_ESP32S3)
- #if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 2) && ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 1, 0))
+#if defined(CONFIG_IDF_TARGET_ESP32S3)
+#if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 3) && ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 1, 0)) || (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1) && ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 2, 0)) || (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 3, 0))
       (&dev->comd[0])[index].val = cmd_val;
- #else
+#else
       (&dev->comd0)[index].val = cmd_val;
- #endif
+#endif
 #else
       dev->command[index].val = cmd_val;
 #endif
